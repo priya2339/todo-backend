@@ -22,7 +22,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 app.use('/api/todos', todoRoutes);
 
-
+app.get('/', (req, res) => {
+    res.send("API is working correctly!")
+})
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
