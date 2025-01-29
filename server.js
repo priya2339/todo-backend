@@ -22,9 +22,21 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 app.use('/api/todos', todoRoutes);
 
-app.get('/', (req, res) => {
-    res.send("API is working correctly!")
-})
+// app.get('/', (req, res) => {
+//     res.send("API is working correctly!")
+// })
+
+
+app.get('/', async (req, res) => {
+    try {
+        const todos = await Todo.find();
+        res.status(200).json(todos); 
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching todos', error: err });
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
